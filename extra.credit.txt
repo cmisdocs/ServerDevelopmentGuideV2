@@ -1,0 +1,13 @@
+Some ideas for more extra credit exercises:
+
+
+1. Use another document as the watermark for the document. (path the the document can be a parameter for the extension)
+
+2. Add date, time, and user to the bottom of each page as a watermark. (instead of a fixed graphic) 
+
+3. Encapsulate the watermarking logic into an InputStream implementation to avoid ByteArrayOutputStream and ByteArrayInputStream objects.
+
+Super credits:
+1. Add a virtual secondary type „demo:watermark“ with a boolean property „demo:watermarked" to all documents. Set the property to true for all PDFs and to false for all other documents.
+
+2. Define a virtual pdfDocument subtype of cmis:document with a new integer property named 'totalPages'.    Have the extension intercept all pdf documents and change their type to the new pdfdocument type and set their totalPages int value.  Don't forget to add your new type to the type definitions collection. 
