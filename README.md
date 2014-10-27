@@ -6,4 +6,4 @@ This project is a developer's guide showing how to build a CMIS server with the 
 The ./docs folder contains the pdf version of the guide.  Pdf link [here] 
 (https://github.com/cmisdocs/ServerDevelopmentGuideV2/blob/master/docs/OpenCMIS%20Server%20Development%20Guide%20-%202nd%20Edition.pdf?raw=true).
 
-If you are reviewing the document and you find any error please create a git issue to report it and we will get it fixed.  Thanks.
+If you are reviewing the document and you find an error please create an issue to report it and we will get it fixed.  Thanks in advance for any feedback.
