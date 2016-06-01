@@ -1,5 +1,6 @@
 OpenCMIS Server Development Guide 2nd Edition
 =============================================
+( ISBN: 9781617294419 )
 
 This project is a developer's guide showing how to build a CMIS *server* with the Apache Chemistry OpenCMIS Server Framework as well as the OpenCMIS server plugins.
 
