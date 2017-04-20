@@ -9,7 +9,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <opencmis.version>0.12.0</opencmis.version>
+        <opencmis.version>1.1.0</opencmis.version>
     </properties>
 
     <name>Your OpenCMIS Server</name>
@@ -94,6 +94,11 @@
             <type>war</type>
         </dependency>
         <dependency>
+		    <groupId>org.apache.chemistry.opencmis</groupId>
+		    <artifactId>chemistry-opencmis-commons-api</artifactId>
+		    <version>${opencmis.version}</version>
+		</dependency>
+        <dependency>
             <groupId>org.apache.chemistry.opencmis</groupId>
             <artifactId>chemistry-opencmis-server-support</artifactId>
             <version>${opencmis.version}</version>
@@ -121,5 +126,5 @@
   			<version>1.8.6</version>
 		</dependency>
     </dependencies>
-
+	
 </project>
