@@ -1,6 +1,7 @@
 package org.foo;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
@@ -15,7 +16,6 @@ import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.apache.chemistry.opencmis.commons.server.CallContext;
 import org.apache.chemistry.opencmis.commons.server.CmisService;
 import org.apache.chemistry.opencmis.server.shared.ThresholdOutputStream;
-import org.apache.chemistry.opencmis.server.shared.ThresholdOutputStreamFactory;
 import org.apache.chemistry.opencmis.server.support.wrapper.AbstractCmisServiceWrapper;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -142,19 +142,10 @@ public class CmisCustomPdfWatermarkServiceWrapper extends AbstractCmisServiceWra
                 // another way to handle very large objects in a small memory
                 // footprint.
                 // ByteArrayOutputStream out = new ByteArrayOutputStream();
-                ThresholdOutputStream out;
-                ThresholdOutputStreamFactory outFactory = (ThresholdOutputStreamFactory) sharedContext
-                        .get(CallContext.STREAM_FACTORY);
-                if (outFactory != null) {
-                    // reuse the server factory configuration
-                    out = outFactory.newOutputStream();
-                } else {
-                    // there is no default ThresholdOutputStreamFactory
-                    // -> create a stream manually:
-                    // default temp directory, max 4MiB in main memory,
-                    // unlimited content size
-                    out = new ThresholdOutputStream(null, 4 * 1024 * 1024, -1);
-                }
+                File tempFile = new File((String)sharedContext.get(CallContext.TEMP_DIR));
+                int memThrehold = Integer.parseInt((String)sharedContext.get(CallContext.MEMORY_THRESHOLD));
+                long maxSize = Long.parseLong((String)sharedContext.get(CallContext.MAX_CONTENT_SIZE));
+                ThresholdOutputStream out = new ThresholdOutputStream(tempFile, memThrehold, maxSize);
 
                 try {
                     modifiedPDF.save(out);
