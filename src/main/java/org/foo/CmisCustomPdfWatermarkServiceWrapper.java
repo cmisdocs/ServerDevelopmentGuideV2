@@ -14,8 +14,9 @@ import org.apache.chemistry.opencmis.commons.exceptions.CmisRuntimeException;
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.apache.chemistry.opencmis.commons.server.CallContext;
 import org.apache.chemistry.opencmis.commons.server.CmisService;
+import org.apache.chemistry.opencmis.commons.server.TempStoreOutputStream;
+import org.apache.chemistry.opencmis.server.shared.TempStoreOutputStreamFactory;
 import org.apache.chemistry.opencmis.server.shared.ThresholdOutputStream;
-import org.apache.chemistry.opencmis.server.shared.ThresholdOutputStreamFactory;
 import org.apache.chemistry.opencmis.server.support.wrapper.AbstractCmisServiceWrapper;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -138,12 +139,12 @@ public class CmisCustomPdfWatermarkServiceWrapper extends AbstractCmisServiceWra
                 // actual watermark code
                 PDDocument modifiedPDF = watermarkPDF(rawStream);
 
-                // Extra credit here. Replace with ThresholdOutputStream or find
+                // Extra credit here. Replace with TempStoreOutputStream or find
                 // another way to handle very large objects in a small memory
                 // footprint.
                 // ByteArrayOutputStream out = new ByteArrayOutputStream();
-                ThresholdOutputStream out;
-                ThresholdOutputStreamFactory outFactory = (ThresholdOutputStreamFactory) sharedContext
+                TempStoreOutputStream out;
+                TempStoreOutputStreamFactory outFactory = (TempStoreOutputStreamFactory) sharedContext
                         .get(CallContext.STREAM_FACTORY);
                 if (outFactory != null) {
                     // reuse the server factory configuration

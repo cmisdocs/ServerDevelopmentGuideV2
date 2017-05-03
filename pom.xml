@@ -9,7 +9,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <opencmis.version>0.12.0</opencmis.version>
+        <opencmis.version>1.1.0</opencmis.version>
     </properties>
 
     <name>Your OpenCMIS Server</name>
@@ -21,15 +21,15 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.0</version>
                 <configuration>
-                    <target>1.6</target>
-                    <source>1.6</source>
+                    <target>1.7</target>
+                    <source>1.7</source>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.4</version>
                 <configuration>
                     <overlays>
                         <overlay></overlay>
@@ -43,44 +43,19 @@
                                 <exclude>images/**</exclude> <!-- images for the default index page -->
                                 <exclude>web/**</exclude> <!-- sample JavaScript application -->
                                 <exclude>WEB-INF/classes/sample-repository.properties</exclude> <!-- sample server properties file -->
-                                <exclude>WEB-INF/token/**</exclude>  <!-- sample Browser Binding token implementation -->
-                                <exclude>WEB-INF/websphere/**</exclude> <!-- WebSphere specfic files -->
+                                <exclude>WEB-INF/token/**</exclude> <!-- sample Browser Binding token implementation -->
                             </excludes>
+                            <includes>
+                                <include>**</include>
+                                <include>META-INF/THIRD-PARTY-LICENSES</include>
+                            </includes>
                         </overlay>
                     </overlays>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.9</version>
-                <configuration>
-                    <wtpversion>2.0</wtpversion>
-                    <wtpContextName>server</wtpContextName>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>true</downloadJavadocs>
-                    <linkedResources>
-                        <linkedResource>
-                            <name>src/main/webapp/WEB-INF/sun-jaxws.xml</name>
-                            <type>1</type>
-                            <location>PROJECT_LOC/target/${project.build.finalName}/WEB-INF/sun-jaxws.xml</location>
-                        </linkedResource>
-                        <linkedResource>
-                            <name>src/main/webapp/WEB-INF/web.xml</name>
-                            <type>1</type>
-                            <location>PROJECT_LOC/target/${project.build.finalName}/WEB-INF/web.xml</location>
-                        </linkedResource>
-                        <linkedResource>
-                            <name>src/main/webapp/WEB-INF/cmis10</name>
-                            <type>2</type>
-                            <location>PROJECT_LOC/target/${project.build.finalName}/WEB-INF/cmis10</location>
-                        </linkedResource>
-                        <linkedResource>
-                            <name>src/main/webapp/WEB-INF/cmis11</name>
-                            <type>2</type>
-                            <location>PROJECT_LOC/target/${project.build.finalName}/WEB-INF/cmis11</location>
-                        </linkedResource>                        
-                    </linkedResources>
+                    <archive>
+                        <manifestEntries>
+                            <DisableIBMJAXWSEngine>true</DisableIBMJAXWSEngine>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
@@ -98,6 +73,13 @@
             <artifactId>chemistry-opencmis-server-support</artifactId>
             <version>${opencmis.version}</version>
         </dependency>
+        <!-- Uncomment for CORS support 
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+        -->
         <dependency><!-- for development only -->
             <groupId>org.apache.chemistry.opencmis</groupId>
             <artifactId>chemistry-opencmis-server-bindings</artifactId>
@@ -113,7 +95,7 @@
         <dependency><!-- enables OpenCMIS frame logging to log4j -->
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.5</version>          
+            <version>1.7.21</version>          
         </dependency>
         <dependency>
   			<groupId>org.apache.pdfbox</groupId>
